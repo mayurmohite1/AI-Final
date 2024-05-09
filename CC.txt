@@ -1,0 +1,202 @@
+1) Library Store App (Student, Book)
+
+Student Object:
+Fields:
+Name (Text, required)
+Student ID (Auto Number, required)
+Email (Email, required)
+Grade (Picklist, required)
+
+Books Object:
+Fields:
+Title (Text, required)
+Author (Text, required)
+ISBN (Text, required)
+Genre (Picklist, required)
+
+Apply Master Detail on Book
+
+2) Recruit App (Manager, Candidate)
+
+Recruiter/Manager Object:
+Fields:
+Name (Text, required)
+Employee ID (Auto Number, required)
+Email (Email, required)
+Specialization/Domain (Picklist, required)
+
+Recruitee/Candidate Object:
+Fields:
+Name (Text, required)
+Email (Email, required)
+Phone Number (Phone, required)
+Specialization/Domain (Picklist, required)
+
+Apply Master Detail on Candidate
+
+3) School Database (Teacher, Student, Batch)
+
+Teacher Object:
+Fields:
+Name (Text, required)
+Employee ID (Auto Number, required)
+Email (Email, required)
+Subject Taught (Text, required)
+
+Student Object:
+Fields:
+Name (Text, required)
+Roll Number (Auto Number, required)
+Email (Email, required)
+Grade (Text, required)
+
+Batch Object:
+Fields:
+Batch Name (Text, required)
+Start Date (Date, required)
+End Date (Date, required)
+Teacher (Lookup to Teacher object, required)
+
+Apply Master Detail on Teacher, Student
+
+4) Project Management App (Team, Project)
+
+Team Object:
+Fields:
+Team Name (Text, required)
+Team Leader (Lookup to User, required)
+Department (Picklist, required)
+Project Count (Number, default to 0)
+
+Project Object:
+Fields:
+Project Name (Text, required)
+Description (Text Area)
+Start Date (Date, required)
+End Date (Date, required)
+
+Apply Master Detail on Project
+
+5) Maharashtra Tourism (Category, Place)
+
+Category Object:
+Fields:
+Category Name (Text, required)
+Description (Text Area)
+Created By (Lookup to User, required)
+Creation Date (Date, default to Today)
+
+Place Object:
+Fields:
+Place Name (Text, required)
+Location (Text)
+Description (Text Area)
+Rating (Number, 0 to 5)
+
+Apply Master Detail on Place
+
+6) Vegetable Vendor (Vendor, Vegetable)
+
+Vendor Object:
+Fields:
+Name (Text, required)
+Location (Text)
+Phone (Phone, required)
+Email (Email, required)
+
+Vegetable Object:
+Fields:
+Name (Text, required)
+Type (Picklist, required)
+Price (Currency, required)
+Quantity (Number, required)
+
+Apply Master Detail on Vegetable
+
+7) Fruit Basket Store (Store, Fruit)
+
+Basket Object:
+Fields:
+Name (Text, required)
+Description (Text Area)
+Price (Currency, required)
+Date Added (Date, required)
+
+Fruit Object:
+Fields:
+Name (Text, required)
+Type (Picklist, required)
+Price Per Unit (Currency, required)
+Quantity (Number, required)
+
+Apply Master Detail on Fruit
+
+8) Inventory App (Project, Inventory)
+
+Product Object:
+Fields:
+Name (Text, required)
+Description (Text Area)
+SKU (Text, required, unique)
+Price (Currency, required)
+
+Inventory Object:
+Fields:
+Product (Lookup to Product object, required)
+Quantity (Number, required)
+Location (Text)
+Last Updated (Date, required)
+
+Apply Master Detail on Inventory
+
+9) Cloth Store App (Product, Order)
+
+Product Object:
+Fields:
+Name (Text, required)
+Description (Text Area)
+SKU (Text, required, unique)
+Price (Currency, required)
+
+Order Object:
+Fields:
+Product (Lookup to Product object, required)
+Quantity (Number, required)
+Customer Name (Text, required)
+Order Date (Date, required)
+
+Apply Master Detail on Order
+
+10) Mobile Shopee App (Product, Order)
+
+Product Object:
+Fields:
+Name (Text, required)
+Description (Text Area)
+Model Number (Text, required, unique)
+Price (Currency, required)
+
+Order Object:
+Fields:
+Product (Lookup to Product object, required)
+Quantity (Number, required)
+Customer Name (Text, required)
+Order Date (Date, required)
+
+Apply Master Detail on Order
+
+
+Trigger code
+
+trigger (Trigger_Name) on Object1__c (after insert) {
+    List<Object2_c> Object2List = new List<Object2_c>(); // Correcting variable declaration
+    for(Object1__c Object1Obj : Trigger.new){ // Using Trigger.new to refer to the records being inserted
+        Object2_c Object2Obj = new Object2_c();
+        Object2Obj.Name = '(whatever name you want)';
+        Object2Obj.Object1__c= Object1Obj.Id;
+        Object2List.add(Object2Obj);
+    }
+    Insert Object2List;
+}
+
+sObject==Object1

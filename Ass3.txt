@@ -1,0 +1,80 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+// Structure to represent a job
+struct Job {
+    char id;
+    int deadline;
+    int profit;
+};
+
+// Function to find the maximum profit job schedule using Greedy approach
+void jobScheduling(Job arr[], int n) {
+    // Bubble sort jobs based on profit in non-decreasing order
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j].profit < arr[j + 1].profit) {
+                // Swap arr[j] and arr[j+1]
+                Job temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+
+    // Array to store the result (scheduled jobs)
+    char result[n];
+    bool slot[n] = {false}; // Initialize all slots as available
+
+    // Iterate through all jobs and find slots
+    for (int i = 0; i < n; i++) {
+        // Find a free slot for this job (from end to start)
+        for (int j = min(n, arr[i].deadline) - 1; j >= 0; j--) {
+            if (!slot[j]) {
+                result[j] = arr[i].id;
+                slot[j] = true; // Mark this slot as occupied
+                break;
+            }
+        }
+    }
+
+    // Print the result
+    cout << "Optimal Job Schedule: ";
+    for (int i = 0; i < n; i++) {
+        if (slot[i]) {
+            cout << result[i] << " ";
+        }
+    }
+
+    // Calculate and print the total profit
+    int totalProfit = 0;
+    for (int i = 0; i < n; i++) {
+        if (slot[i]) {
+            totalProfit += arr[i].profit;
+        }
+    }
+    cout << "\nTotal Profit: " << totalProfit << endl;
+}
+
+int main() {
+    int n;
+    cout << "Enter the number of jobs: ";
+    cin >> n;
+    Job arr[n];
+    
+    // Input job details
+    cout << "Enter job details (id, deadline, profit):" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << "Id: ";
+        cin >> arr[i].id;
+        cout << "Deadline: ";
+        cin >> arr[i].deadline;
+        cout << "Profit: ";
+        cin >> arr[i].profit;
+    }
+
+    // Find the optimal job schedule
+    jobScheduling(arr, n);
+    return 0;
+}

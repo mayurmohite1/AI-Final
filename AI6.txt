@@ -1,0 +1,101 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+enum class Symptom {
+    None,
+    Headache,
+    RunnyNose,
+    Sneezing,
+    SoreThroat,
+    Fever,
+    Chills,
+    BodyAche,
+    AbdominalPain,
+    PoorAppetite,
+    Rash,
+    Conjunctivitis,
+    Sweating,
+    Nausea,
+    Vomiting,
+    Diarrhoea
+};
+
+bool askSymptom(Symptom symptom, const string& symptomName) {
+    char response;
+    cout << "Does the patient have " << symptomName << "? (y/n): ";
+    cin >> response;
+    return (response == 'y' || response == 'Y');
+}
+
+void diagnoseIllness() {
+    bool headache = askSymptom(Symptom::Headache, "headache");
+    bool runnyNose = askSymptom(Symptom::RunnyNose, "runny nose");
+    bool sneezing = askSymptom(Symptom::Sneezing, "sneezing");
+    bool soreThroat = askSymptom(Symptom::SoreThroat, "sore throat");
+    bool fever = askSymptom(Symptom::Fever, "fever");
+    bool chills = askSymptom(Symptom::Chills, "chills");
+    bool bodyAche = askSymptom(Symptom::BodyAche, "body ache");
+    bool abdominalPain = askSymptom(Symptom::AbdominalPain, "abdominal pain");
+    bool poorAppetite = askSymptom(Symptom::PoorAppetite, "poor appetite");
+    bool rash = askSymptom(Symptom::Rash, "rash");
+    bool conjunctivitis = askSymptom(Symptom::Conjunctivitis, "conjunctivitis");
+    bool sweating = askSymptom(Symptom::Sweating, "sweating");
+    bool nausea = askSymptom(Symptom::Nausea, "nausea");
+    bool vomiting = askSymptom(Symptom::Vomiting, "vomiting");
+    bool diarrhoea = askSymptom(Symptom::Diarrhoea, "diarrhoea");
+
+    if (headache && runnyNose && soreThroat && fever) {
+        cout << "Diagnosis: Common Cold" << endl;
+        cout << "Advices and Suggestions:" << endl;
+        cout << "1: Rest" << endl;
+        cout << "2: Drink fluids" << endl;
+        cout << "3: Take over-the-counter medication for symptoms" << endl;
+    } else if (soreThroat && fever && headache && runnyNose && chills) {
+        cout << "Diagnosis: Influenza" << endl;
+        cout << "Advices and Suggestions:" << endl;
+        cout << "1: Tamiflu" << endl;
+        cout << "2: Panadol" << endl;
+        cout << "3: Zanamivir" << endl;
+        cout << "Please take a warm bath and do salt gargling because" << endl;
+    } else if (headache && abdominalPain && poorAppetite && fever) {
+        cout << "Diagnosis: Typhoid" << endl;
+        cout << "Advices and Suggestions:" << endl;
+        cout << "1: Chloramphenicol" << endl;
+        cout << "2: Amoxicillin" << endl;
+        cout << "3: Ciprofloxacin" << endl;
+        cout << "4: Azithromycin" << endl;
+        cout << "Please do complete bed rest and take soft diet because" << endl;
+    } else if (rash && bodyAche && fever) {
+        cout << "Diagnosis: Chickenpox" << endl;
+        cout << "Advices and Suggestions:" << endl;
+        cout << "1: Varicella vaccine" << endl;
+        cout << "2: Immunoglobulin" << endl;
+        cout << "3: Acetaminophen" << endl;
+        cout << "4: Acyclovir" << endl;
+        cout << "Please do have oatmeal bath and stay at home because" << endl;
+    } else if (fever && runnyNose && rash && conjunctivitis) {
+        cout << "Diagnosis: Measles" << endl;
+        cout << "Advices and Suggestions:" << endl;
+        cout << "1: Tylenol" << endl;
+        cout << "2: Aleve" << endl;
+        cout << "3: Advil" << endl;
+        cout << "4: Vitamin A" << endl;
+        cout << "Please get rest and use more liquid because" << endl;
+    } else if (fever && sweating && headache && nausea && vomiting && diarrhoea) {
+        cout << "Diagnosis: Malaria" << endl;
+        cout << "Advices and Suggestions:" << endl;
+        cout << "1: Aralen" << endl;
+        cout << "2: Qualaquin" << endl;
+        cout << "3: Plaquenil" << endl;
+        cout << "4: Mefloquine" << endl;
+        cout << "Please do not sleep in open air and cover your full skin because" << endl;
+    } else {
+        cout << "No diagnosis found." << endl;
+    }
+}
+
+int main() {
+    diagnoseIllness();
+    return 0;
+}
